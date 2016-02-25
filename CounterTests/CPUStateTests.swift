@@ -29,9 +29,10 @@ class CPUStateTests: XCTestCase {
     func commonTestCanonicalize(stringA: String, stringB: String, expectedC: String) {
         
         let cpuState = CPUState(decimalStringA: stringA, decimalStringB: stringB)
-        
         let registerC = cpuState.registers[RegId.C.rawValue]
         let actualC = registerC.asDecimalString()
+        
+        print(expectedC)
         
         XCTAssert(expectedC == actualC, "Expected register C to be \(expectedC) but got \(actualC)")
     }
@@ -40,12 +41,12 @@ class CPUStateTests: XCTestCase {
     
     // In this case, the user has entered 100. x 10^2. The canonicalized value is 1 x 10^4.
     func testCanonicalizeSmallPositiveInteger() {
-        self.commonTestCanonicalize("01000000000002", stringB: "00029999999000", expectedC: "01000000000004")
+        self.commonTestCanonicalize("01000000000000", stringB: "00029999999000", expectedC: "01000000000004")
     }
     
     // In this case, the user hs entered 0.01 x 10^-2. The canonicalized value is 1 x 10^-4.
     func testCanonicalizeSmallDecimalNumber() {
-        self.commonTestCanonicalize("00010000000902", stringB: "02009999999000", expectedC: "01000000000996")
+        self.commonTestCanonicalize("00000100000000", stringB: "02000999999999", expectedC: "01000000000996")
     }
     
     // In this case, the user hs entered 010.0 x 10^12. The canonicalized value is 1.0 x 10^13.

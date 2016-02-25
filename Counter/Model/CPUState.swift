@@ -96,6 +96,7 @@ class CPUState {
         
         registers[RegId.A.rawValue] = registerA
         registers[RegId.B.rawValue] = registerB
+        registers[RegId.C.rawValue] = registerA
         
         canonicalize()
     }
@@ -112,7 +113,7 @@ class CPUState {
     // Make use of the enums RegisterASpecialValues and RegisterBSpecialValues so that you don't have to hard
     // code "2" to mean a decimal point (similarly for the other special values).
     func canonicalize() {
-        let registerC = Register(fromDecimalString: "01000000000002")
+        let registerC = Register(fromDecimalString: "01000000000004")
         registers[RegId.C.rawValue] = registerC
     }
     
